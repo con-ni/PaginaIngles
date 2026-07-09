@@ -115,7 +115,7 @@ function initAuthPortal() {
     // Mock user storage
     if (!localStorage.getItem("enerwave_users")) {
         const defaultUsers = [
-            { email: "demo@enerwave.com", password: "password123", name: "Innovación y Desarrollo" }
+            { email: "demo@enerwave.com", password: "password123", name: "Innovation & Development" }
         ];
         localStorage.setItem("enerwave_users", JSON.stringify(defaultUsers));
     }
@@ -129,19 +129,19 @@ function initAuthPortal() {
         const confirmPass = document.getElementById("reg-confirm-password").value;
         
         if (!name || !email || !password) {
-            showFormAlert(registerAlert, "Por favor complete todos los campos.", "error");
+            showFormAlert(registerAlert, "Please fill in all required fields.", "error");
             return;
         }
         
         if (password !== confirmPass) {
-            showFormAlert(registerAlert, "Las contraseñas no coinciden.", "error");
+            showFormAlert(registerAlert, "Passwords do not match.", "error");
             return;
         }
         
         const users = JSON.parse(localStorage.getItem("enerwave_users") || "[]");
         
         if (users.find(u => u.email.toLowerCase() === email.toLowerCase())) {
-            showFormAlert(registerAlert, "Este correo electrónico ya está registrado.", "error");
+            showFormAlert(registerAlert, "This email address is already registered.", "error");
             return;
         }
         
@@ -149,7 +149,7 @@ function initAuthPortal() {
         users.push({ name, email, password });
         localStorage.setItem("enerwave_users", JSON.stringify(users));
         
-        showFormAlert(registerAlert, "¡Registro completado! Redirigiendo al inicio de sesión...", "success");
+        showFormAlert(registerAlert, "Registration complete! Redirecting to login...", "success");
         registerForm.reset();
         
         setTimeout(() => {
@@ -167,7 +167,7 @@ function initAuthPortal() {
         const password = document.getElementById("login-password").value;
         
         if (!email || !password) {
-            showFormAlert(loginAlert, "Por favor introduzca correo y contraseña.", "error");
+            showFormAlert(loginAlert, "Please enter your email and password.", "error");
             return;
         }
         
@@ -175,33 +175,40 @@ function initAuthPortal() {
         const user = users.find(u => u.email.toLowerCase() === email.toLowerCase() && u.password === password);
         
         if (user) {
-            showFormAlert(loginAlert, "¡Sesión iniciada con éxito! Cargando Portal...", "success");
-            
+            showFormAlert(loginAlert, "Login successful! Loading Portal...", "success");
+
             setTimeout(() => {
-                // Hide flip card, show gorgeous simulator dashboard
-                frontCard.style.display = "none";
-                backCard.style.display = "none";
+                // Hide the flip-card wrapper
                 authWrapper.style.display = "none";
-                
-                // Show dashboard
+
+                // Set avatar initials from org name
+                const initials = user.name.split(' ').map(w => w[0]).join('').substring(0, 2).toUpperCase();
+                document.getElementById("dash-avatar").textContent = initials;
                 document.getElementById("dashboard-user-name").textContent = user.name;
-                dashboardPanel.classList.add("active");
-                
-                // Generate dynamic dashboard metrics
+
+                // Show dashboard — must set display directly because inline style
+                // has higher specificity than CSS classes
+                dashboardPanel.style.display = "flex";
+                dashboardPanel.style.flexDirection = "column";
+                dashboardPanel.style.opacity = "1";
+                dashboardPanel.style.transform = "scale(1)";
+
+                // Start live metrics
                 generateLiveDashboardData();
             }, 1200);
+
         } else {
-            showFormAlert(loginAlert, "Credenciales incorrectas. Pruebe demo@enerwave.com / password123", "error");
+            showFormAlert(loginAlert, "Incorrect credentials. Try demo@enerwave.com / password123", "error");
         }
     });
-    
+
     // Logout logic
     document.getElementById("dashboard-logout").addEventListener("click", () => {
-        dashboardPanel.classList.remove("active");
-        
+        dashboardPanel.style.opacity = "0";
+        dashboardPanel.style.transform = "scale(0.95)";
+
         setTimeout(() => {
-            frontCard.style.display = "flex";
-            backCard.style.display = "flex";
+            dashboardPanel.style.display = "none";
             authWrapper.style.display = "block";
             loginForm.reset();
             clearAlerts();
@@ -220,22 +227,21 @@ function showFormAlert(element, message, type) {
    ========================================================================== */
 function generateLiveDashboardData() {
     const powerOutput = document.getElementById("dash-power");
-    const activeBuoys = document.getElementById("dash-buoys");
     const energyToday = document.getElementById("dash-energy");
     
+    if (!powerOutput || !energyToday) return;
+
     let basePower = 342.6;
     let baseEnergy = 4212.8;
     
-    // Animate and fluctuate value simulating real turbines connected to the sea!
     const interval = setInterval(() => {
         if (!document.getElementById("user-dashboard").classList.contains("active")) {
             clearInterval(interval);
             return;
         }
-        // Small fluctuation simulating ocean wave cycles
         const fluctuation = (Math.random() - 0.5) * 8.5;
         basePower = Math.max(120, basePower + fluctuation);
-        baseEnergy += (basePower / 3600); // add generated power to energy
+        baseEnergy += (basePower / 3600);
         
         powerOutput.textContent = basePower.toFixed(2) + " MW";
         energyToday.textContent = baseEnergy.toFixed(1) + " MWh";
@@ -310,11 +316,11 @@ function initContactForm() {
         const message = document.getElementById("con-message").value.trim();
         
         if (!name || !email || !message) {
-            showFormAlert(contactAlert, "Por favor, completa todos los campos del formulario.", "error");
+            showFormAlert(contactAlert, "Please fill in all fields of the form.", "error");
             return;
         }
         
-        showFormAlert(contactAlert, "¡Mensaje enviado con éxito! Nuestro equipo técnico se pondrá en contacto pronto.", "success");
+        showFormAlert(contactAlert, "Message sent successfully! Our technical team will be in touch soon.", "success");
         contactForm.reset();
         
         setTimeout(() => {
