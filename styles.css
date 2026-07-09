@@ -594,6 +594,11 @@ button, input, textarea, select {
     gap: 30px;
 }
 
+/* 4-column variant used for the team section */
+.team-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+}
+
 .tech-card {
     padding: 40px 30px;
     text-align: left;
@@ -1249,6 +1254,10 @@ button, input, textarea, select {
     .tech-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .team-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
     
     .stats-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1360,6 +1369,10 @@ button, input, textarea, select {
     .tech-grid {
         grid-template-columns: 1fr;
     }
+
+    .team-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+    }
     
     .stats-grid {
         grid-template-columns: 1fr;
@@ -1386,4 +1399,351 @@ button, input, textarea, select {
     .auth-card-front, .auth-card-back {
         padding: 24px;
     }
+}
+
+/* ==========================================================================
+   Fix: form-control had 48px left padding for an icon that doesn't exist
+   ========================================================================== */
+.form-control {
+    padding: 12px 16px !important;
+}
+
+/* ==========================================================================
+   Team Section — Premium Cards
+   ========================================================================== */
+.team-section {
+    background: linear-gradient(180deg, var(--bg-dark) 0%, var(--bg-darker) 100%);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
+
+.team-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+}
+
+.team-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+}
+
+.team-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--border-hover);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), var(--shadow-glow);
+}
+
+/* Color-coded header banners */
+.team-card-header {
+    position: relative;
+    height: 130px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+
+.team-cyan  { background: linear-gradient(135deg, rgba(0,242,254,0.18) 0%, rgba(0,242,254,0.04) 100%); border-bottom: 2px solid rgba(0,242,254,0.35); }
+.team-green { background: linear-gradient(135deg, rgba(39,201,126,0.18) 0%, rgba(39,201,126,0.04) 100%); border-bottom: 2px solid rgba(39,201,126,0.35); }
+.team-blue  { background: linear-gradient(135deg, rgba(79,172,254,0.18) 0%, rgba(79,172,254,0.04) 100%); border-bottom: 2px solid rgba(79,172,254,0.35); }
+.team-purple{ background: linear-gradient(135deg, rgba(168,85,247,0.18) 0%, rgba(168,85,247,0.04) 100%); border-bottom: 2px solid rgba(168,85,247,0.35); }
+
+.team-avatar-ring {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+}
+.team-cyan  .team-avatar-ring { background: rgba(0,242,254,0.12); color: #00f2fe; border: 1.5px solid rgba(0,242,254,0.4); }
+.team-green .team-avatar-ring { background: rgba(39,201,126,0.12); color: #27c97e; border: 1.5px solid rgba(39,201,126,0.4); }
+.team-blue  .team-avatar-ring { background: rgba(79,172,254,0.12); color: #4facfe; border: 1.5px solid rgba(79,172,254,0.4); }
+.team-purple .team-avatar-ring { background: rgba(168,85,247,0.12); color: #a855f7; border: 1.5px solid rgba(168,85,247,0.4); }
+
+.team-initials {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    opacity: 0.15;
+}
+.team-cyan   .team-initials { color: #00f2fe; }
+.team-green  .team-initials { color: #27c97e; }
+.team-blue   .team-initials { color: #4facfe; }
+.team-purple .team-initials { color: #a855f7; }
+
+.team-card-body {
+    padding: 22px 24px 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.team-role-badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 4px 10px;
+    border-radius: var(--radius-full);
+    width: fit-content;
+}
+.badge-cyan   { background: rgba(0,242,254,0.1);   color: #00f2fe;   border: 1px solid rgba(0,242,254,0.25); }
+.badge-green  { background: rgba(39,201,126,0.1);  color: #27c97e;   border: 1px solid rgba(39,201,126,0.25); }
+.badge-blue   { background: rgba(79,172,254,0.1);  color: #4facfe;   border: 1px solid rgba(79,172,254,0.25); }
+.badge-purple { background: rgba(168,85,247,0.1);  color: #a855f7;   border: 1px solid rgba(168,85,247,0.25); }
+
+.team-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.team-desc {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    flex: 1;
+}
+
+.team-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.skill-tag {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: var(--radius-full);
+    padding: 3px 10px;
+}
+
+/* ==========================================================================
+   Portal — Redesigned Layout
+   ========================================================================== */
+.portal-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+    max-width: 1100px;
+}
+
+.portal-left-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding-top: 20px;
+}
+
+.portal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    background: rgba(39,201,126,0.08);
+    border: 1px solid rgba(39,201,126,0.2);
+    border-radius: var(--radius-full);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    width: fit-content;
+}
+
+.portal-left-title {
+    font-size: 2.8rem;
+    line-height: 1.1;
+    font-weight: 800;
+}
+
+.portal-left-desc {
+    color: var(--text-secondary);
+    font-size: 1rem;
+    line-height: 1.7;
+}
+
+.portal-feature-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.portal-feature-item {
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.portal-feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    background: rgba(0,242,254,0.08);
+    border: 1px solid rgba(0,242,254,0.15);
+    color: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.portal-feature-item h4 {
+    font-size: 0.95rem;
+    margin-bottom: 2px;
+    color: var(--text-primary);
+}
+
+.portal-feature-item p {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.portal-buoy-mini {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+    background: linear-gradient(180deg, #060d1a 0%, #03070f 100%);
+    padding: 12px;
+    max-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portal-buoy-img {
+    max-height: 196px;
+    width: 100%;
+    object-fit: contain;
+}
+
+/* Right panel — auth card */
+.portal-right-panel {
+    position: relative;
+}
+
+.auth-wrapper {
+    perspective: 1200px;
+    width: 100%;
+    min-height: 480px;
+}
+
+.auth-logo-mark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: var(--bg-darker);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    box-shadow: 0 0 20px rgba(0,242,254,0.3);
+}
+
+.portal-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0 10px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+.portal-divider::before,
+.portal-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border-color);
+}
+
+.demo-hint {
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+.demo-hint strong {
+    color: var(--primary);
+}
+
+/* Dashboard panel after login */
+.dash-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.dash-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.dash-metric {
+    background: rgba(0,242,254,0.04);
+    border: 1px solid rgba(0,242,254,0.1);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.dash-metric-label {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.dash-metric-value {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.dash-status-ok {
+    color: var(--secondary) !important;
+}
+
+/* ==========================================================================
+   Responsive for new sections
+   ========================================================================== */
+@media (max-width: 1024px) {
+    .team-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .portal-wrapper { grid-template-columns: 1fr; gap: 40px; }
+    .portal-left-title { font-size: 2.2rem; }
+}
+
+@media (max-width: 768px) {
+    .team-grid-4 { grid-template-columns: repeat(2, 1fr); }
+    .portal-buoy-mini { display: none; }
+    .dash-metrics { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 480px) {
+    .team-grid-4 { grid-template-columns: 1fr; }
+    .dash-metrics { grid-template-columns: 1fr; }
 }
